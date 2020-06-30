@@ -1,6 +1,6 @@
 # SocialNetwork for university diploma project
 
-The repo has two parts backend and frontend.
+The repo has two parts backend (back) and frontend (ui).
 
 For start project need:
 

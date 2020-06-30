@@ -1,0 +1,5 @@
+export const ORDER_STATUTES = {
+  DECLINED: 0,
+  ACCEPTED: 1,
+  IN_PROGRESS: 2,
+}

@@ -1,4 +1,4 @@
-import APP_ROLE from './app_role';
+import APP_ROLE from './appRole';
 
 export function upsertOptions() {
   return {

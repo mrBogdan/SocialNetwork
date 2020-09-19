@@ -1,5 +1,5 @@
 import { BaseService } from '../../../core';
-import { USER_RELATIONS } from '../../../modules/utils/user_relations';
+import { UserRelations } from '../../../modules/utils/userRelations';
 import { debug } from '../../../modules/utils';
 import { Document } from 'mongoose';
 
@@ -33,18 +33,18 @@ export default class RelationService extends BaseService {
     ])
       .then(([firstRelation, secondRelation]) => {
         if (firstRelation && secondRelation) {
-          return USER_RELATIONS.FRIENDS;
+          return UserRelations.FRIENDS;
         }
 
         if (firstRelation) {
-          return USER_RELATIONS.FRIEND_REQUEST;
+          return UserRelations.FRIEND_REQUEST;
         }
 
         if (secondRelation) {
-          return USER_RELATIONS.REQUESTED_IN_YOU;
+          return UserRelations.REQUESTED_IN_YOU;
         }
 
-        return USER_RELATIONS.NOTHING;
+        return UserRelations.NOTHING;
       });
   }
 
@@ -99,9 +99,9 @@ function iterate(userId: string) {
         used.push(curr);
         const NOT_RESOLVED_RELATION = getSubscriber(userId, curr);
 
-        if (NOT_RESOLVED_RELATION.relationCode === USER_RELATIONS.REQUESTED_IN_YOU) {
+        if (NOT_RESOLVED_RELATION.relationCode === UserRelations.REQUESTED_IN_YOU) {
           result.newFriendRequestsToUser.push(NOT_RESOLVED_RELATION.user);
-        } else if (NOT_RESOLVED_RELATION.relationCode === USER_RELATIONS.FRIEND_REQUEST) {
+        } else if (NOT_RESOLVED_RELATION.relationCode === UserRelations.FRIEND_REQUEST) {
           result.userFriendRequest.push(NOT_RESOLVED_RELATION.user);
         }
       }
@@ -117,8 +117,8 @@ function getFriendFromRelation(currentUserId: string, relation: Relation): strin
 
 function getSubscriber(currentUserId: string, relation: Relation): NotResolvedRelation {
   return pluckId(relation.source) == currentUserId
-    ? { relationCode: USER_RELATIONS.REQUESTED_IN_YOU, user: relation.subscriber }
-    : { relationCode: USER_RELATIONS.FRIEND_REQUEST, user: relation.source };
+    ? { relationCode: UserRelations.REQUESTED_IN_YOU, user: relation.subscriber }
+    : { relationCode: UserRelations.FRIEND_REQUEST, user: relation.source };
 }
 
 function findRelation(item: any, items: any[]) {
